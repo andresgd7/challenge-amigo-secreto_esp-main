@@ -2,28 +2,39 @@
 let amigos = [];
 const ulTag=document.getElementById("resultado");
 
-function agregarAmigo (){
-    let nomAmigo=document.getElementById("amigo").value;
-    
+function mostrarAmigos() {
+    ulTag.innerHTML = "";
 
-    if (nomAmigo === "") {
-        alert("Por favor, ingresa un nombre de amigo.");}
-    else{
-        amigos.push(nomAmigo);
+    for (let i = 0; i < amigos.length; i++) {
         const li = document.createElement("li");
-        li.textContent = nomAmigo;
+        li.textContent = amigos[i];
         ulTag.appendChild(li);
     }
-    
-
-    console.log(amigos);
-    // .value = amigos.join(", ");
 }
 
+
+function agregarAmigo() {
+    const nomAmigo = document.getElementById("amigo").value.trim();
+
+    if (nomAmigo === "") {
+        alert("Por favor, ingresa un nombre de amigo.");
+        return;
+    }
+
+    amigos.push(nomAmigo);
+    mostrarAmigos();
+    document.getElementById("amigo").value = "";
+
+    console.log(amigos);
+}
+
+
 function sortearAmigo() {
-    ulTag.innerHTML = "";
+    if (amigos.length === 0) {
+        alert("Agrega al menos un amigo antes de sortear.");
+        return;
+    }
+
     const randomAmigo = amigos[Math.floor(Math.random() * amigos.length)];
     ulTag.innerHTML = `El amigo secreto sorteado es: ${randomAmigo}`;
-
-
 }
